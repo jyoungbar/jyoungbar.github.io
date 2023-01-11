@@ -1,2 +1,37 @@
-/*CSS file for sytling*/
+/*CSS file for styling*/
+
+body {
+	background-color: #10B8FF;
+}
+
+h1 {
+	/*display: block;
+	width: 50%;
+	float: left;*/
+	text-align: center;
+}
+
+#profileFrame {
+	padding: 7%;
+	width: 50%;
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+	background-image: radial-gradient(circle, /*rgba(255,33,179,4)*/#9C04B3, rgba(255,0,0,0) 50%);
+	position: relative;
+}
+
+#name {
+	margin-top: -2%;
+	font-size: 30px;
+}
+
+#profilePic {
+	margin-top: -2%;
+	width: 40%;
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+}
 
