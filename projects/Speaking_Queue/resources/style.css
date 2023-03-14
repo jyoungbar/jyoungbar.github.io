@@ -1,0 +1,42 @@
+/*CSS file for Speaking_Queue*/
+
+
+body {
+/*	background-color: #10B8FF;*/
+	text-align: center;
+}
+
+#queueSpace {
+/*	border: solid black 3px;*/
+	width: 50%;
+	margin: auto;
+	margin-top: 5%;
+}
+
+.queue {
+	border: solid black 3px;
+	margin-top: 10%;
+}
+
+.queue > button {
+	margin-left: 10%;
+}
+
+/*.delete, .deleteName {*/
+.delete {
+/*	clear: left;*/
+	float: right;
+}
+
+
+input {
+	color: lightslategrey;
+}
+
+ol {
+	width: 50%;
+	margin: auto;
+/*	list-style:none;*/
+  	list-style-position: inside;
+    padding-left:0;
+}
