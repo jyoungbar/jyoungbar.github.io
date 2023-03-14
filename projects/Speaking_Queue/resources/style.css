@@ -16,6 +16,8 @@ body {
 .queue {
 	border: solid black 3px;
 	margin-top: 10%;
+/*	background-image: linear-gradient(#9C04B3, rgba(255,0,0,0) 50%);*/
+	background-image: linear-gradient(#9C04B3, rgba(255,0,0,0) 25%);
 }
 
 .queue > button {
