@@ -27,7 +27,7 @@ class PriorityQueue {
 
 	add(name) {
 		//check if speaker is already in items
-		console.log(this.record.get(name));
+		// console.log(this.record.get(name));
 		if(!this.record.has(name) || !this.record.get(name)[1]) {
 
 			var tallies = 0;
@@ -45,10 +45,10 @@ class PriorityQueue {
 			var replaced_speaker = qSpeaker;
 			while(index > 0) {
 				var parent = get_parent(index);
-				console.log(index);
-				console.log(parent);
+				// console.log(index);
+				// console.log(parent);
 				var parent_speaker = this.items[parent];
-				console.log(parent_speaker.name);
+				// console.log(parent_speaker.name);
 				//see if the new speaker has spoken less than the parent
 				if(parent_speaker.tallies > qSpeaker.tallies) {
 					index = parent;
@@ -82,8 +82,8 @@ class PriorityQueue {
 
 		var name = this.items[0].name;
 		this.record.set(name, [this.items[0].tallies+1, false]);
-		console.log(this.record.get(name));
-		console.log(this.record);
+		// console.log(this.record.get(name));
+		// console.log(this.record);
 		return this.items.shift();
 	}
 
@@ -191,15 +191,12 @@ function updateQueue(index) {
 			+ '<button class="deleteName" name="' + speakers[i].name + '">-</button></li>';
 		}
 	}
-	
+
 	//add to the Quick Add List
 	var quickAddList = document.getElementById('quickList' + index);
 	var record = Array.from(openQueues[index-1].record.entries());
-	// console.log(record);
 	quickAddList.innerHTML = "";
 	for(var i = 0; i < record.length; i++) {
-		// console.log(record[i][0]);
-		// console.log(record[i][1][1]);
 		if(!record[i][1][1]) {
 			quickAddList.innerHTML += '<li name="' + index + '">' + record[i][0] + '&nbsp; &nbsp; &nbsp; &nbsp; Times spoken: ' + record[i][1][0] 
 			+ '<button class="addQuickName" name="' + record[i][0] + '">+</button></li>';
@@ -222,6 +219,18 @@ document.addEventListener('click', function (event) {
 		openQueues.push(new PriorityQueue);
 		document.getElementById('queueSpace').innerHTML += createQueueHTML();
 	
+		//enable enter button to submit name in text input
+		var input = document.getElementById('nameInput' + openQueues.length);
+		input.addEventListener("keypress", function(event) {
+			if(event.key == "Enter") {
+				event.preventDefault();
+				var addButton = document.getElementById('add'+openQueues.length);
+				addButton.click();
+				event.currentTarget.value = "";
+				event.currentTarget.style.color = "lightslategrey";
+			}
+		});
+
 	} else if(event.target.matches('.delete')) {
 		//delete queue
 		event.target.parentNode.remove();

@@ -18,3 +18,4 @@ https://www.tutorialspoint.com/how-to-remove-existing-html-elements-in-javascrip
 https://stackoverflow.com/questions/46665554/remove-parent-element-on-click-with-plain-javascript
 geeksforgeeks.org/how-to-remove-indentation-from-an-unordered-list-item-using-css/
 https://stackoverflow.com/questions/13938975/how-to-remove-indentation-from-an-unordered-list-item
+https://www.w3schools.com/howto/howto_js_trigger_button_enter.asp
