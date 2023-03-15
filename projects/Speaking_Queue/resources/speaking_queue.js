@@ -182,11 +182,11 @@ function updateQueue(index) {
 	} else {
 		isEmptyText.innerHTML = "";
 		//iterate through all the names on the queue and put them on the page
-		queueList.innerHTML = '<li>' + speakers[0].name + '&nbsp; &nbsp; &nbsp; &nbsp; Times spoken: ' + speakers[0].tallies 
-		+ '<button class="deleteName">-</button></li>';
+		queueList.innerHTML = '<li name="' + index + '">' + speakers[0].name + '&nbsp; &nbsp; &nbsp; &nbsp; Times spoken: ' + speakers[0].tallies 
+		+ '<button class="deleteName" name="' + speakers[0].name + '">-</button></li>';
 		for(var i = 1; i < speakers.length; i++) {
-			queueList.innerHTML += '<li>' + speakers[i].name + '&nbsp; &nbsp; &nbsp; &nbsp; Times spoken: ' + speakers[i].tallies 
-			+ '<button class="deleteName">-</button></li>';
+			queueList.innerHTML += '<li name="' + index + '">' + speakers[i].name + '&nbsp; &nbsp; &nbsp; &nbsp; Times spoken: ' + speakers[i].tallies 
+			+ '<button class="deleteName" name="' + speakers[i].name + '">-</button></li>';
 		}
 	}
 	
@@ -251,6 +251,12 @@ document.addEventListener('click', function (event) {
 	} else if(event.target.matches('.clear')) {
 		openQueues[event.target.name-1].clear();
 		updateQueue(event.target.name);
+
+	} else if(event.target.matches('.deleteName')) {
+		var parent = event.target.parentElement;
+		var name = parent.getAttribute('name');
+		openQueues[name-1].remove(event.target.name);
+		updateQueue(name);
 	}
 
 });

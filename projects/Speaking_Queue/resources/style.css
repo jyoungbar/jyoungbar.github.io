@@ -36,6 +36,7 @@ input {
 }
 
 ol {
+/*	text-align: left;*/
 	width: 50%;
 	margin: auto;
 /*	list-style:none;*/
