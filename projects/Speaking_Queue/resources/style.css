@@ -43,3 +43,11 @@ ol {
   	list-style-position: inside;
     padding-left:0;
 }
+
+ul {
+	width: 50%;
+	margin: auto;
+	list-style:none;
+  	list-style-position: inside;
+    padding-left:0;
+}

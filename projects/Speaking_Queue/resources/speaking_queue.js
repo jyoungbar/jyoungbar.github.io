@@ -30,9 +30,9 @@ class PriorityQueue {
 		console.log(this.record.get(name));
 		if(!this.record.has(name) || !this.record.get(name)[1]) {
 
-			var tallies = 1;
+			var tallies = 0;
 			if(this.record.has(name)) {
-				tallies = this.record.get(name)[0]+1;
+				tallies = this.record.get(name)[0];
 			}
 			this.record.set(name, [tallies, true]);
 
@@ -81,7 +81,7 @@ class PriorityQueue {
 		}
 
 		var name = this.items[0].name;
-		this.record.set(name, [this.items[0].tallies, false]);
+		this.record.set(name, [this.items[0].tallies+1, false]);
 		console.log(this.record.get(name));
 		console.log(this.record);
 		return this.items.shift();
@@ -102,7 +102,7 @@ class PriorityQueue {
 			if(this.items[i].name == name) {
 				var removed_speaker = this.items[i];
 				this.items.splice(i, 1);
-				this.record.set(name, [removed_speaker.tallies-1, false]);
+				this.record.set(name, [removed_speaker.tallies, false]);
 				return true;
 			}
 		}
@@ -121,7 +121,7 @@ class PriorityQueue {
 			numRemoved++;
 			var removed_speaker = this.items[i];
 			this.items.pop();
-			this.record.set(removed_speaker.name, [removed_speaker.tallies-1, false]);
+			this.record.set(removed_speaker.name, [removed_speaker.tallies, false]);
 		}
 		return numRemoved;
 	}
@@ -158,15 +158,17 @@ function createQueueHTML() {
 	// return '<button class="delete" id="delete' + openQueues.length + '">-</button>'
 	// return '<input type="text" value="Name" id="nameInput" onfocus="clearText(this)" onblur="setBlur(this)">';
 	return '<div class="queue" id="queue' + openQueues.length + '">'
-		+ '<button class="delete" id="delete' + openQueues.length + ' name="' + openQueues.length + '" ">-</button>'
+		+ '<button class="delete" id="delete' + openQueues.length + ' name="' + openQueues.length + '" ">X</button>'
 		+ '<br>'
-		+ '<p class="isEmpty" id="isEmpty' + openQueues.length + '">This queue is currently empty</p>'
+		+ '<h4 class="isEmpty" id="isEmpty' + openQueues.length + '">This queue is currently empty</h4>'
 		+ '<ol class="list" id="list' + openQueues.length + '"></ol>' 
 		+ '<button class="next" id="next' + openQueues.length + '" name="' + openQueues.length + '">Next</button>'
 		+ '<button class="clear" id="clear' + openQueues.length + '" name="' + openQueues.length + '">Clear</button>'
 		+ '<br>'
 		+ '<input type="text" value="Name" id="nameInput' + openQueues.length + '" onfocus="clearText(this)" onblur="setBlur(this)">'
 		+ '<button class="add" id="add' + openQueues.length + '" name="' + openQueues.length + '">Add Name</button>'
+		+ '<h5>Quick Add</h5>'
+		+ '<ul class="quickAddList" id="quickList' + openQueues.length + '" name="' + openQueues.length + '"></ul>'
 	+ '</div>';
 }
 
@@ -180,13 +182,27 @@ function updateQueue(index) {
 		isEmptyText.innerHTML = "This queue is currently empty";
 		queueList.innerHTML = "";
 	} else {
-		isEmptyText.innerHTML = "";
+		isEmptyText.innerHTML = "Queue:";
 		//iterate through all the names on the queue and put them on the page
 		queueList.innerHTML = '<li name="' + index + '">' + speakers[0].name + '&nbsp; &nbsp; &nbsp; &nbsp; Times spoken: ' + speakers[0].tallies 
 		+ '<button class="deleteName" name="' + speakers[0].name + '">-</button></li>';
 		for(var i = 1; i < speakers.length; i++) {
 			queueList.innerHTML += '<li name="' + index + '">' + speakers[i].name + '&nbsp; &nbsp; &nbsp; &nbsp; Times spoken: ' + speakers[i].tallies 
 			+ '<button class="deleteName" name="' + speakers[i].name + '">-</button></li>';
+		}
+	}
+	
+	//add to the Quick Add List
+	var quickAddList = document.getElementById('quickList' + index);
+	var record = Array.from(openQueues[index-1].record.entries());
+	// console.log(record);
+	quickAddList.innerHTML = "";
+	for(var i = 0; i < record.length; i++) {
+		// console.log(record[i][0]);
+		// console.log(record[i][1][1]);
+		if(!record[i][1][1]) {
+			quickAddList.innerHTML += '<li name="' + index + '">' + record[i][0] + '&nbsp; &nbsp; &nbsp; &nbsp; Times spoken: ' + record[i][1][0] 
+			+ '<button class="addQuickName" name="' + record[i][0] + '">+</button></li>';
 		}
 	}
 	
@@ -249,14 +265,23 @@ document.addEventListener('click', function (event) {
 		}
 		
 	} else if(event.target.matches('.clear')) {
+		//Clear the queue
 		openQueues[event.target.name-1].clear();
 		updateQueue(event.target.name);
 
 	} else if(event.target.matches('.deleteName')) {
+		//Remove a name from the queue using the - button
 		var parent = event.target.parentElement;
-		var name = parent.getAttribute('name');
-		openQueues[name-1].remove(event.target.name);
-		updateQueue(name);
+		var index = parent.getAttribute('name');
+		openQueues[index-1].remove(event.target.name);
+		updateQueue(index);
+
+	} else if(event.target.matches('.addQuickName')) {
+		//Add a name to the queue from the Quick Add section
+		var parent = event.target.parentElement;
+		var index = parent.getAttribute('name');
+		openQueues[index-1].add(event.target.name);
+		updateQueue(index);
 	}
 
 });

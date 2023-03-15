@@ -1,5 +1,8 @@
 Speaking Queue README
 
+Things to add:
+1. sessionStorage functionality
+2. Edit feature for entries
 
 
 resources:
