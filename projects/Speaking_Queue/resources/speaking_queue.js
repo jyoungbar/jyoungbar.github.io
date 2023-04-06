@@ -132,7 +132,7 @@ class PriorityQueue {
 
 
 
-// var numOpenQueues = 0;
+var numQueues = 0;
 var openQueues = [];
 
 //clears the specified text from the name input box
@@ -157,6 +157,21 @@ function createQueueHTML() {
 	// return openQueues.length;
 	// return '<button class="delete" id="delete' + openQueues.length + '">-</button>'
 	// return '<input type="text" value="Name" id="nameInput" onfocus="clearText(this)" onblur="setBlur(this)">';
+	
+	// return '<div class="queue" id="queue' + numQueues + '">'
+	// 	+ '<button class="delete" id="delete' + numQueues + ' name="' + numQueues + '" ">X</button>'
+	// 	+ '<br>'
+	// 	+ '<h4 class="isEmpty" id="isEmpty' + numQueues + '">This queue is currently empty</h4>'
+	// 	+ '<ol class="list" id="list' + numQueues + '"></ol>' 
+	// 	+ '<button class="next" id="next' + numQueues + '" name="' + numQueues + '">Next</button>'
+	// 	+ '<button class="clear" id="clear' + numQueues + '" name="' + numQueues + '">Clear</button>'
+	// 	+ '<br>'
+	// 	+ '<input type="text" value="Name" id="nameInput' + numQueues + '" name="' + numQueues + '" onfocus="clearText(this)" onblur="setBlur(this)">'
+	// 	+ '<button class="add" id="add' + numQueues + '" name="' + numQueues + '">Add Name</button>'
+	// 	+ '<h5>Quick Add</h5>'
+	// 	+ '<ul class="quickAddList" id="quickList' + numQueues + '" name="' + numQueues + '"></ul>'
+	// + '</div>';
+
 	return '<div class="queue" id="queue' + openQueues.length + '">'
 		+ '<button class="delete" id="delete' + openQueues.length + ' name="' + openQueues.length + '" ">X</button>'
 		+ '<br>'
@@ -165,7 +180,7 @@ function createQueueHTML() {
 		+ '<button class="next" id="next' + openQueues.length + '" name="' + openQueues.length + '">Next</button>'
 		+ '<button class="clear" id="clear' + openQueues.length + '" name="' + openQueues.length + '">Clear</button>'
 		+ '<br>'
-		+ '<input type="text" value="Name" id="nameInput' + openQueues.length + '" onfocus="clearText(this)" onblur="setBlur(this)">'
+		+ '<input type="text" value="Name" id="nameInput' + openQueues.length + '" name="' + openQueues.length + '" onfocus="clearText(this)" onblur="setBlur(this)">'
 		+ '<button class="add" id="add' + openQueues.length + '" name="' + openQueues.length + '">Add Name</button>'
 		+ '<h5>Quick Add</h5>'
 		+ '<ul class="quickAddList" id="quickList' + openQueues.length + '" name="' + openQueues.length + '"></ul>'
@@ -217,6 +232,7 @@ document.addEventListener('click', function (event) {
 
 		//create new queue
 		openQueues.push(new PriorityQueue);
+		numQueues++;
 		document.getElementById('queueSpace').innerHTML += createQueueHTML();
 	
 		//enable enter button to submit name in text input
@@ -224,7 +240,8 @@ document.addEventListener('click', function (event) {
 		input.addEventListener("keypress", function(event) {
 			if(event.key == "Enter") {
 				event.preventDefault();
-				var addButton = document.getElementById('add'+openQueues.length);
+				console.log(event.currentTarget.name);
+				var addButton = document.getElementById('add'+event.currentTarget.name);
 				addButton.click();
 				event.currentTarget.value = "";
 				event.currentTarget.style.color = "lightslategrey";

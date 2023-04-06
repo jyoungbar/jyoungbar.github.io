@@ -17,7 +17,8 @@ body {
 	border: solid black 3px;
 	margin-top: 10%;
 /*	background-image: linear-gradient(#9C04B3, rgba(255,0,0,0) 50%);*/
-	background-image: linear-gradient(#9C04B3, rgba(255,0,0,0) 25%);
+/*	background-image: linear-gradient(#9C04B3, rgba(255,0,0,0) 25%);*/
+	background-image: linear-gradient(#f7b512, #0033ab 25%);
 }
 
 .queue > button {
@@ -28,6 +29,10 @@ body {
 .delete {
 /*	clear: left;*/
 	float: right;
+}
+
+h4, h5, ol, ul {
+	color: white;
 }
 
 
