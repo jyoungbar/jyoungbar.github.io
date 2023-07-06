@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO in Node.js Example</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    <h1>Socket.io in Node.js</h1>
+    <ul id="messages"></ul>
+    <!-- <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+      var socket = io();
+    </script> -->
+
+    <script type="module">
+      import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+
+      const socket = io('http://192.168.1.253:3000');
+      // const socket = io.connect('http://localhost:3000');
+
+
+      // var socket = new io.Socket();
+      // socket.connect('http://68.73.115.4:3000');
+
+    </script>
+
+  </body>
+</html>
