@@ -4,8 +4,9 @@
     <title>Socket.IO in Node.js Example</title>
   </head>
   <body>
-    <h1>Hello World</h1>
+    <h1>Queue</h1>
     <h1>Socket.io in Node.js</h1>
+    
     <ul id="messages"></ul>
     <!-- <script src="/socket.io/socket.io.js"></script>
     
@@ -16,7 +17,7 @@
     <script type="module">
       import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 
-      const socket = io('https://192.168.1.253:3000');
+      const socket = io('http://192.168.1.253:3000', {secure: true});
       // const socket = io.connect('http://localhost:3000');
 
 
